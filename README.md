@@ -10,7 +10,7 @@ AIが専用構文で生成したクイズを、**貼り付けるだけでブラ�
 
 GitHub Pages で公開されています。
 
-**Demo URL: （初回デプロイ後に記載）**
+**Demo URL: https://k-z-u.github.io/qzjs.js/**
 
 ## Features
 
