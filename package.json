@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "AIが作ったクイズ構文を貼るだけで動く、ブラウザ完結型のインタラクティブクイズエンジン",
+  "description": "専用構文のクイズを貼るだけで動く、ブラウザ完結型のインタラクティブクイズエンジン",
   "license": "MIT",
   "repository": {
     "type": "git",
