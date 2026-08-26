@@ -1,0 +1,31 @@
+{
+  "name": "qzjs.js",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "AIが作ったクイズ構文を貼るだけで動く、ブラウザ完結型のインタラクティブクイズエンジン",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/k-z-u/qzjs.js.git"
+  },
+  "keywords": [
+    "quiz",
+    "education",
+    "javascript",
+    "learning",
+    "github-pages",
+    "ai"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "jsdom": "^30.0.1",
+    "vite": "^8.2.2",
+    "vitest": "^4.1.11"
+  }
+}

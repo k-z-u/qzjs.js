@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>qzjs.js — AIが作ったクイズを貼るだけ</title>
+    <meta
+      name="description"
+      content="AIが専用構文で生成したクイズを貼り付けるだけで、ブラウザ上でインタラクティブな学習クイズとして実行できるWebアプリ兼JavaScriptクイズエンジン。"
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232563eb'/%3E%3Cpath d='M9 17l4 4 10-10' stroke='white' stroke-width='3.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"
+    />
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("qzjs:theme");
+          var theme =
+            stored ||
+            (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light");
+          document.documentElement.dataset.theme = theme;
+        } catch (e) {
+          document.documentElement.dataset.theme = "light";
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="page">
+      <header class="site-header">
+        <div class="container site-header__inner">
+          <p class="brand">qzjs.js</p>
+          <button
+            id="theme-toggle"
+            type="button"
+            class="btn btn--ghost btn--small"
+            aria-label="表示テーマを切り替える"
+          >
+            ダークモード
+          </button>
+        </div>
+      </header>
+
+      <main>
+        <section id="intro" class="container">
+          <div class="hero">
+            <h1 class="hero__title">qzjs.js</h1>
+            <p class="hero__tagline">AIが作ったクイズを貼るだけ。</p>
+          </div>
+
+          <form id="quiz-form" class="card editor-card" novalidate>
+            <label class="field-label" for="source">クイズ構文を貼り付け</label>
+            <textarea
+              id="source"
+              class="code-area"
+              rows="12"
+              spellcheck="false"
+              placeholder='@quiz "サンプルクイズ"
+
+@choice
+id: q1
+topic: 例
+question: ここに問題文を書きます
+- 選択肢1
+- 正解の選択肢 *
+explanation: ここに解説を書きます'
+            ></textarea>
+
+            <div id="syntax-errors" class="syntax-errors" role="alert" hidden tabindex="-1"></div>
+
+            <div class="actions actions--main">
+              <button type="submit" id="start-btn" class="btn btn--primary btn--large">
+                クイズを開始
+              </button>
+            </div>
+            <div class="actions actions--secondary">
+              <button type="button" id="sample-btn" class="btn btn--ghost btn--small">
+                サンプルを読み込む
+              </button>
+              <button type="button" id="clear-btn" class="btn btn--ghost btn--small">
+                入力をクリア
+              </button>
+            </div>
+            <p class="hint">Ctrl / Cmd + Enter でも開始できます。</p>
+          </form>
+        </section>
+
+        <section id="stage" class="container" hidden>
+          <div id="quiz-root"></div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <div class="container">
+          <p>すべての処理はブラウザ内で完結します。入力内容はどこにも送信されません。</p>
+        </div>
+      </footer>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
