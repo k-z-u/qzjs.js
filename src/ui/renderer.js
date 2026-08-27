@@ -4,12 +4,18 @@ import {
   buildChoiceWidget,
   buildInputWidget,
   buildOrderWidget,
+  buildMatchWidget,
+  buildGroupWidget,
+  buildClozeWidget,
+  buildNumericWidget,
+  buildHotspotWidget,
   button,
   copyToClipboard,
   el,
   progressBar,
   showToast,
 } from "./components.js";
+import { renderClozeQuestion } from "../questions/cloze.js";
 
 function answerRow(label, value) {
   return el("div", {
@@ -67,11 +73,14 @@ export class Renderer {
     const card = el("article", { className: "card question-card" });
     const metaChildren = [el("span", { className: "qnum", text: `Q${n}` })];
     if (q.topic) metaChildren.push(el("span", { className: "chip", text: q.topic }));
+    // タイプバッジ
+    const typeLabel = { match: "組み合わせ", group: "分類", cloze: "穴埋め", numeric: "数値", hotspot: "画像" }[q.type];
+    if (typeLabel) metaChildren.push(el("span", { className: "chip chip--type", text: typeLabel }));
     card.append(
       el("div", { className: "question-meta", children: metaChildren }),
       el("h2", {
         className: "question-heading",
-        text: q.question,
+        text: q.type === "cloze" ? renderClozeQuestion(q.question) : q.question,
         attrs: { tabindex: "-1" },
       }),
     );
@@ -79,7 +88,13 @@ export class Renderer {
     let widget;
     if (q.type === "choice") widget = buildChoiceWidget(q);
     else if (q.type === "input") widget = buildInputWidget();
-    else widget = buildOrderWidget(q);
+    else if (q.type === "order") widget = buildOrderWidget(q);
+    else if (q.type === "match") widget = buildMatchWidget(q);
+    else if (q.type === "group") widget = buildGroupWidget(q);
+    else if (q.type === "cloze") widget = buildClozeWidget(q);
+    else if (q.type === "numeric") widget = buildNumericWidget(q);
+    else if (q.type === "hotspot") widget = buildHotspotWidget(q);
+    else widget = buildInputWidget();
     card.append(widget.root);
 
     const feedback = el("div", {

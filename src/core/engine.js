@@ -1,11 +1,21 @@
 import { gradeChoice } from "../questions/choice.js";
 import { gradeInput } from "../questions/input.js";
 import { gradeOrder } from "../questions/order.js";
+import { gradeMatch } from "../questions/match.js";
+import { gradeGroup } from "../questions/group.js";
+import { gradeCloze } from "../questions/cloze.js";
+import { gradeNumeric } from "../questions/numeric.js";
+import { gradeHotspot } from "../questions/hotspot.js";
 
 const GRADERS = {
   choice: gradeChoice,
   input: gradeInput,
   order: gradeOrder,
+  match: gradeMatch,
+  group: gradeGroup,
+  cloze: gradeCloze,
+  numeric: gradeNumeric,
+  hotspot: gradeHotspot,
 };
 
 export class Engine {
@@ -38,6 +48,7 @@ export class Engine {
     if (this._currentAnswered) throw new Error("この問題にはすでに回答済みです");
 
     const grader = GRADERS[q.type];
+    if (!grader) throw new Error(`未対応の問題タイプ: ${q.type}`);
     const outcome = grader(q, payload ?? {});
     this._currentAnswered = true;
 

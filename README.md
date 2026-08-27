@@ -14,7 +14,7 @@ GitHub Pages で公開されています。
 
 ## Features
 
-- 専用構文（`@choice` / `@input` / `@order`）を貼るだけでクイズが動く
+- 専用構文（`@choice` / `@input` / `@order` / `@match` / `@group` / `@cloze` / `@numeric` / `@hotspot`）を貼るだけでクイズが動く
 - 1問ずつ表示・即時採点・解説表示
 - 分野別（topic別）の正答集計と苦手分野の可視化
 - 間違えた問題の復習リスト
@@ -22,6 +22,7 @@ GitHub Pages で公開されています。
 - 完全静的。サーバー不要、入力はブラウザ内（localStorage）のみ
 - XSS安全設計：ユーザー入力は `textContent` 経由でのみ描画され、HTML/JSとして評価されない
 - ダークモード対応 / レスポンシブ / キーボード操作・aria-live等のアクセシビリティ対応
+- 日本語正規化（`match: normalized` デフォルト）— 全角/半角・大小・スペース・「・」を自動吸収。読みの違いは `yomi:` / `accept:` で明示
 
 ## Quick Start
 
@@ -102,6 +103,91 @@ answer:
 - 10
 explanation: 2 < 7 < 10 です。
 ```
+
+### @match
+
+組み合わせ問題。`pairs:` に `左 => 右` の形式でペアを書きます。
+
+```text
+@match
+id: m1
+topic: アメリカの気候
+question: 地域と気候を組み合わせよう
+pairs:
+- 五大湖周辺 => 冷帯
+- フロリダ南部 => 亜熱帯
+- ロッキー山脈 => 高山帯
+explanation: 地形と位置から気候を対応させます。
+```
+
+### @group
+
+分類問題。`groups:` の下に `- グループ名:` と `  - 項目` で分類を書きます。
+
+```text
+@group
+id: g1
+topic: 気候
+question: グループごとに分類しよう
+groups:
+- 東部:
+  - 冷帯
+  - 温暖湿潤
+- 西部:
+  - ステップ
+  - 地中海性
+explanation: 東部は湿潤、西部は乾燥です。
+```
+
+### @cloze
+
+穴埋め問題。`question:` の中に `{正答}` または `{正答|別解}` で穴埋めを書きます。
+
+```text
+@cloze
+id: z1
+topic: アメリカの気候
+question: 東部は北から {冷帯|れいたい} → {温帯} → {亜熱帯} となる。
+explanation: 北ほど寒く南ほど暖かいです。
+```
+
+`|` 以降は別解扱い。`\|` / `\}` でエスケープできます。
+
+### @numeric
+
+数値問題。`tolerance:` で許容誤差、`unit:` で単位を扱えます。
+
+```text
+@numeric
+id: n1
+topic: 理科
+question: 質量54g、体積20cm³の密度は？
+answer: 2.7
+unit: g/cm³
+tolerance: 0.01
+explanation: 54÷20=2.7 g/cm³
+```
+
+単位は省略可（`2.7` も正解）、違う単位（`kg/m³`）は不正解。単位を必須にしたい場合は `requireUnit: true` を追加。
+
+### @hotspot
+
+画像クリック問題。`image:` に画像URL、`areas:` にエリア、`answer:` に正解エリア名を書きます。
+
+```text
+@hotspot
+id: h1
+topic: 地理
+question: ロッキー山脈をクリックしてください
+image: /maps/usa.svg
+areas:
+- ロッキー山脈: 15,20,35,75
+- 五大湖周辺: 55,15,75,35
+answer: ロッキー山脈
+explanation: 西部の山脈です。
+```
+
+`image:` は `https://...` または同梱の `/maps/usa.svg` を指定。AIに未知の画像URLを推測させないでください。
 
 ### エラー表示
 
@@ -207,10 +293,16 @@ src/
 ├── questions/
 │   ├── choice.js
 │   ├── input.js
-│   └── order.js
+│   ├── order.js
+│   ├── match.js
+│   ├── group.js
+│   ├── cloze.js
+│   ├── numeric.js
+│   └── hotspot.js
 └── ui/
     ├── renderer.js  # 画面レンダリング
     └── components.js
+public/maps/usa.svg  # 同梱地図（hotspot用）
 ```
 
 ## Deployment

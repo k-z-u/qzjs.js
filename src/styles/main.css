@@ -366,6 +366,13 @@ main {
   color: var(--muted);
 }
 
+.chip--type {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: var(--accent);
+  font-weight: 700;
+}
+
 .question-heading {
   margin: 0 0 20px;
   font-size: clamp(1.15rem, 3vw, 1.4rem);
@@ -831,6 +838,170 @@ main {
     grid-area: badges;
     justify-self: end;
   }
+}
+
+/* ---------- Match widget ---------- */
+.match-widget {
+  display: grid;
+  gap: 10px;
+}
+.match-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+}
+.match-left {
+  flex: 1;
+  font-weight: 600;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.match-select {
+  flex: 1;
+  max-width: 220px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+}
+
+/* ---------- Group widget ---------- */
+.group-widget {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+.group-column {
+  border: 2px dashed var(--border);
+  border-radius: 12px;
+  padding: 10px;
+  background: var(--surface);
+  min-height: 120px;
+}
+.group-column__title {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 800;
+  text-align: center;
+  color: var(--accent);
+}
+.group-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+.group-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-2);
+  font-size: 14px;
+}
+.group-item__text {
+  flex: 1;
+}
+.group-select {
+  padding: 4px 6px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 12px;
+}
+.group-empty {
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  padding: 8px;
+}
+
+/* ---------- Cloze widget ---------- */
+.cloze-widget {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  line-height: 2;
+}
+.cloze-text {
+  line-height: 1.6;
+}
+.cloze-input {
+  min-width: 120px;
+  max-width: 200px;
+  flex: 1;
+}
+.numeric-hint {
+  margin: 0 0 8px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.numeric-widget .text-input {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Hotspot widget ---------- */
+.hotspot-widget {
+  display: grid;
+  gap: 12px;
+}
+.hotspot-image-wrap {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--surface-2);
+  min-height: 200px;
+}
+.hotspot-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.hotspot-area {
+  position: absolute;
+  border: 2px solid var(--accent);
+  background: rgba(37, 99, 235, 0.15);
+  border-radius: 6px;
+  color: transparent;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.hotspot-area:hover {
+  background: rgba(37, 99, 235, 0.3);
+}
+.hotspot-area--selected {
+  background: rgba(37, 99, 235, 0.45);
+  color: #fff;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+.hotspot-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.hotspot-error {
+  padding: 12px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 14px;
 }
 
 @media (prefers-reduced-motion: reduce) {

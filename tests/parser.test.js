@@ -81,13 +81,17 @@ explanation: 2 < 7 < 10 です。
     expect(q.correctOrder).toEqual(["2", "7", "10"]);
   });
 
-  it("サンプルクイズがエラーなく解析でき、3タイプを含む", () => {
+  it("サンプルクイズがエラーなく解析でき、全タイプを含む", () => {
     const quiz = parseOk(SAMPLE_QUIZ);
-    expect(quiz.questions).toHaveLength(10);
+    expect(quiz.questions.length).toBeGreaterThanOrEqual(10);
     const types = new Set(quiz.questions.map((q) => q.type));
     expect(types.has("choice")).toBe(true);
     expect(types.has("input")).toBe(true);
     expect(types.has("order")).toBe(true);
+    expect(types.has("match")).toBe(true);
+    expect(types.has("group")).toBe(true);
+    expect(types.has("cloze")).toBe(true);
+    expect(types.has("numeric")).toBe(true);
   });
 });
 

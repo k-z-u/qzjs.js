@@ -1,4 +1,4 @@
-export const SAMPLE_QUIZ = `@quiz "中学総合チェック 10問"
+export const SAMPLE_QUIZ = `@quiz "中学総合チェック 14問 - 全タイプ"
 
 @choice
 id: q1
@@ -23,8 +23,6 @@ id: q3
 topic: 計算
 question: 3 × 4 は？
 answer: 12
-accept:
-- １２
 explanation: 3を4回足すと12になります。
 
 @choice
@@ -57,8 +55,49 @@ question: 「図書館」を表す英単語は？
 answer: library
 explanation: library が 図書館 という意味です。
 
-@choice
+@match
 id: q7
+topic: アメリカの気候
+question: 地域と気候を組み合わせよう
+pairs:
+- 五大湖周辺 => 冷帯
+- フロリダ南部 => 亜熱帯
+- ロッキー山脈 => 高山帯
+- 西部内陸 => 乾燥帯
+explanation: 地形と位置から気候を対応させます。
+
+@group
+id: q8
+topic: アメリカの気候
+question: 気候区分ごとに分類しよう
+groups:
+- 東部:
+  - 冷帯
+  - 温暖湿潤
+  - 亜熱帯
+- 西部:
+  - ステップ
+  - 地中海性
+  - 西岸海洋性
+explanation: 東部は湿潤、西部は乾燥や地中海性が分布します。
+
+@cloze
+id: q9
+topic: アメリカの気候
+question: アメリカ東部は北から {冷帯|れいたい} → {温帯|おんたい} → {亜熱帯|あねったい} となる。
+explanation: 北ほど寒く、南ほど暖かくなります。
+
+@numeric
+id: q10
+topic: 理科
+question: 質量54g、体積20cm³の物質の密度は？
+answer: 2.7
+unit: g/cm³
+tolerance: 0.01
+explanation: 54÷20=2.7 g/cm³ です。単位は省略可、違う単位は不正解になります。
+
+@choice
+id: q11
 topic: 幾何
 question: 一辺 5cm の正方形の面積は？
 - 25cm2 *
@@ -67,7 +106,7 @@ question: 一辺 5cm の正方形の面積は？
 explanation: 5 × 5 = 25 なので 25cm2 です。
 
 @order
-id: q8
+id: q12
 topic: 英語
 question: アルファベット順に並べ替えよう
 items:
@@ -81,16 +120,18 @@ answer:
 explanation: apple → grape → lemon の順になります。
 
 @input
-id: q9
+id: q13
 topic: 理科
 question: 太陽系でいちばん内側をまわる惑星は？
 answer: 水星
-explanation: 太陽にいちばん近い惑星は水星です。
+yomi: すいせい
+explanation: 太陽にいちばん近い惑星は水星です。yomi で「すいせい」も正解になります。
 
-@input
-id: q10
+@numeric
+id: q14
 topic: 割合
 question: 100 の 25% はいくつ？
 answer: 25
+tolerance: 0
 explanation: 100 × 0.25 = 25 です。
 `;
