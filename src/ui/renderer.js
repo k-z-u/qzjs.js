@@ -16,6 +16,7 @@ import {
   showToast,
 } from "./components.js";
 import { renderClozeQuestion } from "../questions/cloze.js";
+import { getThreeJSMode } from "./threejs-mode.js";
 
 function answerRow(label, value) {
   return el("div", {
@@ -41,6 +42,7 @@ export class Renderer {
     this.onFinish = onFinish;
     this.onExit = onExit;
     this.engine = null;
+    this.threeJSMode = getThreeJSMode();
   }
 
   clear() {
@@ -135,6 +137,11 @@ export class Renderer {
   showFeedback(container, outcome, q, n, total) {
     container.replaceChildren();
     const ok = outcome.correct;
+
+    // Trigger Three.js celebration if correct
+    if (ok) {
+      this.threeJSMode.celebrate();
+    }
 
     const box = el("div", {
       className: `feedback ${ok ? "feedback--ok" : "feedback--ng"}`,

@@ -128,6 +128,7 @@ main {
   justify-content: space-between;
   padding-top: 14px;
   padding-bottom: 14px;
+  gap: 12px;
 }
 
 .brand {
@@ -1010,4 +1011,46 @@ main {
     animation-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* ---------- Three.js Mode Toggle Button ---------- */
+.threejs-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.threejs-toggle-btn:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.threejs-toggle-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.threejs-icon {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.threejs-label {
+  font-weight: 600;
+  font-size: 12px;
+}
+
+/* Three.js container styles are set inline for dynamic positioning */
+.threejs-container canvas {
+  display: block;
 }

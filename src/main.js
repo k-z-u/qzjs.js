@@ -4,6 +4,7 @@ import QzJS from "./qzjs.js";
 import { SAMPLE_QUIZ } from "./sample.js";
 import { formatErrors } from "./core/validator.js";
 import { el, showToast } from "./ui/components.js";
+import { getThreeJSMode } from "./ui/threejs-mode.js";
 
 const $ = (sel) => document.querySelector(sel);
 
@@ -19,6 +20,7 @@ const themeBtn = $("#theme-toggle");
 
 const SOURCE_KEY = "qzjs:lastSource";
 const THEME_KEY = "qzjs:theme";
+const THREEJS_MODE_KEY = "qzjs:threejs-mode";
 
 const storage = {
   get(key) {
@@ -124,6 +126,40 @@ themeBtn.addEventListener("click", () => {
   updateThemeButton();
 });
 
+// Three.js Mode Toggle Button
+const threeJSMode = getThreeJSMode();
+
+function createThreeJSToggleButton() {
+  const toggleBtn = document.createElement('button');
+  toggleBtn.id = 'threejs-mode-toggle';
+  toggleBtn.type = 'button';
+  toggleBtn.className = 'btn btn--ghost btn--small threejs-toggle-btn';
+  toggleBtn.setAttribute('aria-label', '3D UI モードを切り替え');
+  
+  const icon = document.createElement('span');
+  icon.className = 'threejs-icon';
+  icon.textContent = '✨';
+  
+  const label = document.createElement('span');
+  label.className = 'threejs-label';
+  label.textContent = threeJSMode.enabled ? '3D UI ON' : '3D UI OFF';
+  
+  toggleBtn.append(icon, label);
+  
+  toggleBtn.addEventListener('click', () => {
+    const isEnabled = threeJSMode.toggle();
+    label.textContent = isEnabled ? '3D UI ON' : '3D UI OFF';
+    showToast(isEnabled ? '3D UI モードを ON にしました' : '3D UI モードを OFF にしました');
+  });
+  
+  return toggleBtn;
+}
+
 const savedSource = storage.get(SOURCE_KEY);
 if (savedSource) sourceEl.value = savedSource;
 updateThemeButton();
+
+// Add Three.js toggle button to header
+const headerInner = $('.site-header__inner');
+const threeJSToggleBtn = createThreeJSToggleButton();
+headerInner.appendChild(threeJSToggleBtn);
